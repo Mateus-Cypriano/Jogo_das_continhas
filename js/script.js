@@ -2,6 +2,9 @@ const operacoes = ['+', '-', '*', '/'];
 let tentativas = 0;
 let acertosTotais = 0;
 let respostaGlobal; // Variável para a função de verificação enxergar
+let nivelAtual = 1;
+let questoesNoNivel = 0;
+const metaQuestoes = 10;
 
 // Elementos do DOM
 const contaElemento = document.getElementById('continhas');
@@ -12,37 +15,73 @@ const textoRecorde = document.getElementById('recorde-pessoal');
 
 function gerarConta() {
     opcoesElemento.innerHTML = ''; // Limpa botões antigos
-    const op = operacoes[Math.floor(Math.random() * operacoes.length)];
-    let n1, n2;
+    let n1, n2, op;
 
-    if (op === '+') {
-        n1 = Math.floor(Math.random() * 101);
-        n2 = Math.floor(Math.random() * 101);
-        respostaGlobal = n1 + n2;
-        contaElemento.innerHTML = `${n1} + ${n2}`;
-    } 
-    else if (op === '-') {
-        n1 = Math.floor(Math.random() * 101);
-        n2 = Math.floor(Math.random() * 101);
-        if (n1 < n2) [n1, n2] = [n2, n1]; 
-        respostaGlobal = n1 - n2;
-        contaElemento.innerHTML = `${n1} - ${n2}`;
-    } 
-    else if (op === '*') {
-        n1 = Math.floor(Math.random() * 11);
-        n2 = Math.floor(Math.random() * 11);
-        respostaGlobal = n1 * n2;
-        contaElemento.innerHTML = `${n1} x ${n2}`;
+    //Define a dificuldade baseada no Nível
+    switch(nivelAtual) {
+        case 1: // Soma e Subtração simples
+            op = ['+', '-'][Math.floor(Math.random() * 2)];
+            n1 = Math.floor(Math.random() * 20) + 1;
+            n2 = Math.floor(Math.random() * 20) + 1;
+            break;
+        case 2: // Soma e Subtração até 50
+            op = ['+', '-'][Math.floor(Math.random() * 2)];
+            n1 = Math.floor(Math.random() * 50) + 1;
+            n2 = Math.floor(Math.random() * 50) + 1;
+            break;
+        case 3: // Soma e Subtração até 100
+            op = ['+', '-'][Math.floor(Math.random() * 2)];
+            n1 = Math.floor(Math.random() * 101);
+            n2 = Math.floor(Math.random() * 101);
+            break;
+        case 4: // Introdução a Multiplicação
+            op = '*';
+            n1 = Math.floor(Math.random() * 11);
+            n2 = Math.floor(Math.random() * 11);
+            break;
+        case 5: // Introdução a Divisão;
+            op = '/';
+            let resTemp = Math.floor(Math.random() * 10) + 1;
+            n2 = Math.floor(Math.random() * 10) + 1;
+            n1 = resTemp * n2;
+            respostaGlobal = resTemp;
+            break;
+        default: // Nivel 6+: Todas operações misturadas;
+            op = operacoes[Math.floor(Math.random() * 4)];
+            n1 = Math.floor(Math.random() * 101);
+            n2 = Math.floor(Math.random() * 11);
+
     }
-    else if (op === '/') {
-        let resTemp = Math.floor(Math.random() * 10) + 1;
-        n2 = Math.floor(Math.random() * 10) + 1;
-        n1 = resTemp * n2;
-        respostaGlobal = resTemp;
+
+    if (op === '+') { respostaGlobal = n1 + n2; contaElemento.innerHTML = `${n1} + ${n2}`; }
+    else if (op === '-') { 
+        if (n1 < n2) [n1, n2] = [n2, n1];
+        respostaGlobal = n1 - n2; 
+        contaElemento.innerHTML = `${n1} - ${n2}`; 
+    }
+    else if (op === '*') { respostaGlobal = n1 * n2; contaElemento.innerHTML = `${n1} x ${n2}`; }
+    else if (op === '/') { 
+        if (nivelAtual < 4) { /* já calculado acima */ }
+        else {
+            let resT = Math.floor(Math.random() * 10) + 1;
+            n2 = Math.floor(Math.random() * 10) + 1;
+            n1 = resT * n2;
+            respostaGlobal = resT;
+        }
         contaElemento.innerHTML = `${n1} ÷ ${n2}`;
     }
 
+    document.getElementById('level_display').innerText = `Nível ${nivelAtual}`;
     criarBotoes(respostaGlobal);
+}
+
+function atualizarBarra() { 
+    const porcentagem = (questoesNoNivel / metaQuestoes) * 100;
+    console.log("Progresso:", porcentagem + "%"); // Isso vai aparecer no F12 do navegador
+    
+    const elemento = document.getElementById('progress_bar');
+    elemento.style.width = `${porcentagem}%`;
+    
 }
 
 function criarBotoes(correta) {
@@ -67,15 +106,28 @@ function verificarResposta(selecionado, botao) {
     if (selecionado === respostaGlobal) {
         botao.classList.add('btn-correto');
         acertosTotais++;
+        questoesNoNivel++;
+        atualizarBarra();
         if(somAcerto) somAcerto.play();
-        
-        // Bloqueia cliques nos outros botões para não clicar duas vezes
-        opcoesElemento.style.pointerEvents = 'none';
 
-        setTimeout(() => {
-            opcoesElemento.style.pointerEvents = 'all';
-            gerarConta();
-        }, 2000);
+        if (questoesNoNivel >= metaQuestoes) {
+            nivelAtual++;
+            questoesNoNivel = 0;
+            
+            setTimeout(() => {
+                alert(`Parabéns! Você subiu de Nível e agora está no Nível ${nivelAtual}`);
+                atualizarBarra(); //Reseta Barra;
+                opcoesElemento.style.pointerEvents = 'all';
+                gerarConta(); // Gera a primeira conta do novo nível
+            }, 1000);
+
+        } else {
+            setTimeout(() => {
+                opcoesElemento.style.pointerEvents= 'all';
+                gerarConta();
+            }, 1500);
+        }
+        
     } else {
         tentativas++;
         botao.classList.add('btn-errado');
@@ -84,6 +136,7 @@ function verificarResposta(selecionado, botao) {
 
         if (tentativas >= 3) {
             finalizarJogo();
+
         }
     }
 }
@@ -99,9 +152,14 @@ function finalizarJogo() {
     textoRecorde.innerHTML = `Melhor marca: <strong>${recordeAtual}</strong> 🏆`;
 }
 function reiniciarJogo() {
-    tentativas = 0;
     acertosTotais = 0;
+    tentativas = 0;
+    questoesNoNivel = 0; 
+    nivelAtual = 1;
+    
     modal.style.display = 'none';
+    atualizarBarra();
+    
     gerarConta();
 }
 
