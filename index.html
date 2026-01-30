@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Continhas do João</title>
+    <link rel="stylesheet" href="./css/style.css">
+    <script defer src="./js/script.js"></script>
+    
+</head>
+<body>
+    <audio id="som-acerto" src="./sons/super-mario-coin-sound.mp3"></audio>
+    <audio id="som-erro" src="./sons/wrong_5.mp3"></audio>
+    <div class="container_titulo">
+        <span id="titulo">Vamos Fazer Continhas</span>
+        <div class="container_central">
+            <div class="container_continhas"> 
+                <span id="continhas"></span>
+                <div id="opcoes" class="container_opcoes">
+                    <button class="button btn-correto"></button>
+                    <button class="button btn-errado"></button>
+                    <button class="button btn-errado"></button>
+                    <button class="button btn-errado"></button>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+
+    <div id="modal-game-over" class="modal-overlay">
+    <div class="modal-content">
+        <h2>Fim de Jogo! 🎮</h2>
+        <p>Você mandou bem!</p>
+        <p id="total-acertos">Total de acertos: 0</p>
+        <p id="recorde-pessoal" style="color: #ff8c00; font-size: 1.4rem;">Melhor marca: 0 🏆</p>
+        <button onclick="reiniciarJogo()">Jogar Novamente 🔄</button>
+    </div>
+    </div>
+    
+</body>
+</html>

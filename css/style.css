@@ -1,0 +1,149 @@
+body {
+    margin: 0; 
+    padding: 0;
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #1a1a1a;
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+/* container titulo centralizar */
+.container_titulo {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    align-items: center;
+}
+/* container principal */
+.container_central {
+    background-color: #262626;
+    border: 3px solid #ff8c00;
+    border-radius: 20px;
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    min-width: 300px;
+}
+
+#continhas {
+    font-size: 3rem;
+    font-weight: bold;
+    color: #ff8c00;
+}
+
+#titulo {
+    font-size: 3rem;
+    font-weight: bold;
+    color: #ff8c00;
+}
+
+.container_opcoes {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+    margin-top: 20px;
+    flex-direction: column;
+}
+
+.container_opcoes button {
+    background-color: #ff8c00;
+    color: #000;
+    border: none;
+    padding: 20px 40px;
+    font-size: 2rem;
+    font-weight: bold;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    min-width: 120px;
+    box-shadow: 0 6px 0 #b36200;
+}
+
+.container_opcoes button:hover{
+    transform: tranlateY(2px);
+    box-shadow: 0 2px 0 #b36200;
+}
+
+#correct {
+    color: #4caf50;
+    display: none;
+}
+
+#wrong {
+    color: #f44336;
+    display: none;
+}
+
+#score {
+    font-size: 1.2rem;
+    margin-top: 10px;
+    border-top: 1px solid #444;
+    padding-top: 10px;
+}
+
+
+.btn-correto {
+    background-color: #4caf50 !important; /* Verde */
+    color: white !important;
+    
+} 
+
+.btn-errado {
+    background-color: #f44336 !important; /* Vermelho */
+    color: white !important;
+}
+
+.modal-overlay {
+    display: none; 
+    position: fixed;
+    top: 0; left: 0;
+    width: 100vw; height: 100vh;
+    background: rgba(0, 0, 0, 0.9);
+    justify-content: center;
+    align-items: center;
+    z-index: 999;
+}
+
+.modal-content {
+    background: #262626;
+    padding: 40px;
+    border: 4px solid #ff8c00;
+    border-radius: 20px;
+    text-align: center;
+    color: white;
+    width: 80%;
+    max-width: 600px;
+    box-shadow: 0 0 50px rgba(255, 140, 0, 0.3);
+}
+
+.modal-content h2 {
+    font-size: 2.5rem;
+    color: #ff8c00;
+    margin-bottom: 20px;
+}
+
+.modal-content p {
+    font-size: 1.8rem;
+    color: #fff;
+    margin-bottom: 30px;
+}
+
+/* Botão de Reiniciar dentro do Modal */
+.modal-content button {
+    background-color: #fff;
+    color: #000;
+    border: none;
+    padding: 15px 40px;
+    font-size: 1.5rem;
+    font-weight: bold;
+    border-radius: 50px;
+    cursor: pointer;
+    text-transform: uppercase;
+}
