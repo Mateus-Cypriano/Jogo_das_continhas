@@ -147,3 +147,69 @@ body {
     cursor: pointer;
     text-transform: uppercase;
 }
+
+.progress_container {
+    width: 100%;
+    height: 15px;
+    background-color: #444;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    overflow: hidden;
+}
+
+#progress_bar {
+    width: 0%;
+    height: 100%;
+    background-color: #ff8c00;
+    transition: width 0.5s ease;
+}
+
+#level_display {
+    color: #ff8c00;
+    font-weight: bold;
+    font-size: 1.2rem;
+    margin-bottom: 15px;
+}
+
+/* Visual Mobile. */
+@media (max-width: 600px) {
+    .container_continhas {
+        width: 90%;
+        padding: 20px;
+        min-width: unset;
+    }
+
+    #continhas {
+        font-size: 4rem;
+        margin: 20px 0;
+    }
+
+    .container_opcoes {
+        display: grid;
+        grid-template-columns: 1fr 1fr; /* Dois botões por linha */
+        gap: 12px;
+        width: 100px;
+    }
+
+    .container_opcoes button {
+        padding: 25px 10px;
+        font-size: 1.8rem;
+        width: 100%;
+        border-radius: 20px;
+    }
+
+    /* Modal Mobile */
+    .modal-content {
+        width: 85%;
+        padding: 30px 15px;
+    }
+
+    .modal-content h2 {
+        font-size: 2.3rem;
+    }
+}
+
+button { 
+    /* Evita que o usuário dê zoom acidentalmente no botões ao clicar.  */
+    touch-action: manipulation;
+}
