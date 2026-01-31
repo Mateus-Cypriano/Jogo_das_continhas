@@ -173,40 +173,62 @@ body {
 
 /* Visual Mobile. */
 @media (max-width: 600px) {
-    .container_continhas {
-        width: 90%;
-        padding: 20px;
-        min-width: unset;
-    }
+    /* Container Principal - Garante que o conteúdo não transborde */
+body {
+    margin: 0;
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #1a1a1a;
+    font-family: sans-serif;
+    box-sizing: border-box;
+}
 
-    #continhas {
-        font-size: 4rem;
-        margin: 20px 0;
-    }
+.container_continhas {
+    width: 100%;
+    max-width: 400px; /* Largura ideal para celulares */
+    margin: 0 auto;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Centraliza tudo dentro do card */
+}
 
-    .container_opcoes {
-        display: grid;
-        grid-template-columns: 1fr 1fr; /* Dois botões por linha */
-        gap: 12px;
-        width: 100px;
-    }
+/* Área da Conta */
+#continhas {
+    font-size: 3.5rem;
+    color: white;
+    margin: 20px 0;
+    width: 100%;
+}
 
-    .container_opcoes button {
-        padding: 25px 10px;
-        font-size: 1.8rem;
-        width: 100%;
-        border-radius: 20px;
-    }
+/* Container de Opções - Onde os botões ficam */
+.container_opcoes {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* 2 colunas iguais */
+    gap: 15px;
+    width: 100%; /* Ocupa toda a largura do container pai */
+    justify-items: center; /* Centraliza o botão dentro da célula da grade */
+    padding: 10px;
+    box-sizing: border-box;
+}
 
-    /* Modal Mobile */
-    .modal-content {
-        width: 85%;
-        padding: 30px 15px;
-    }
-
-    .modal-content h2 {
-        font-size: 2.3rem;
-    }
+/* Estilo dos Botões */
+.container_opcoes button {
+    width: 100%; /* Faz o botão preencher a coluna do grid */
+    max-width: 150px; /* Evita que fiquem gigantes em telas largas */
+    height: 80px; /* Altura fixa para ficarem todos iguais */
+    background-color: #ff8c00;
+    color: black;
+    border: none;
+    border-radius: 20px;
+    font-size: 1.8rem;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 5px 0 #b36200;
+}
 }
 
 button { 
